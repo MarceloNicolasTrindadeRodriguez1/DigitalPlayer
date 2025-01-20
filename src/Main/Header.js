@@ -13,7 +13,6 @@ import {
   Divider,
   ListItemIcon,
   FormControl,
-  InputLabel,
   Select,
   Chip
 } from '@mui/material';
