@@ -12,8 +12,7 @@ const VideoPlayer = ({ videoUrl }) => {
       liveui: true,
       
       });
-      
-    playerRef.current.crossOrigin("anonymous");
+
     const secureVideoUrl = videoUrl.startsWith("https://")
       ? videoUrl
       : videoUrl.replace("http://", "https://");
@@ -56,6 +55,7 @@ const VideoPlayer = ({ videoUrl }) => {
           width="640"
           height="360"
           controls
+          crossOrigin="anonymous"
         />
       </div>
     </div>
