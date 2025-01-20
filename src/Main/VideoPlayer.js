@@ -8,7 +8,14 @@ const VideoPlayer = ({ videoUrl }) => {
 
   useEffect(() => {
     // Initialize the Video.js player
-    playerRef.current = videojs(videoRef.current, { liveui: true });
+    playerRef.current = videojs(videoRef.current, { 
+      liveui: true,
+      html5: {
+        hls: {
+          withCredentials: false, // Change to true if the server requires authentication
+        },
+      },
+      crossorigin: "anonymous", });
 
     const secureVideoUrl = videoUrl.startsWith("https://")
       ? videoUrl
