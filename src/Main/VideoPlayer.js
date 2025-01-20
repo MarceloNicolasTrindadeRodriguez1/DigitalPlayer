@@ -10,7 +10,11 @@ const VideoPlayer = ({ videoUrl }) => {
     // Initialize the Video.js player
     playerRef.current = videojs(videoRef.current, { 
       liveui: true,
-      
+      html5: {
+        hls: {
+          withCredentials: true,
+        },
+      }
       });
 
     const secureVideoUrl = videoUrl.startsWith("https://")
@@ -55,7 +59,7 @@ const VideoPlayer = ({ videoUrl }) => {
           width="640"
           height="360"
           controls
-          crossOrigin="anonymous"
+          crossOrigin="use-credentials"
         />
       </div>
     </div>
