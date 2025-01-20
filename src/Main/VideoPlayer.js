@@ -10,13 +10,10 @@ const VideoPlayer = ({ videoUrl }) => {
     // Initialize the Video.js player
     playerRef.current = videojs(videoRef.current, { 
       liveui: true,
-      html5: {
-        hls: {
-          withCredentials: true, // Change to true if the server requires authentication
-        },
-      },
-      crossorigin:"use-credentials", });
-
+      
+      });
+      
+    playerRef.current.crossOrigin("anonymous");
     const secureVideoUrl = videoUrl.startsWith("https://")
       ? videoUrl
       : videoUrl.replace("http://", "https://");
