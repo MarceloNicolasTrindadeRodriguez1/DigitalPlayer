@@ -10,9 +10,12 @@ const VideoPlayer = ({ videoUrl }) => {
     // Initialize the Video.js player
     playerRef.current = videojs(videoRef.current, { liveui: true });
 
+    const secureVideoUrl = videoUrl.startsWith("https://")
+      ? videoUrl
+      : videoUrl.replace("http://", "https://");
     // Set the source of the video player based on the videoUrl
     const videoType = getVideoType(videoUrl);
-    playerRef.current.src({ src: videoUrl, type: videoType });
+    playerRef.current.src({ src: secureVideoUrl, type: videoType });
 
     // Play the video
     playerRef.current.play().catch((err) => {
