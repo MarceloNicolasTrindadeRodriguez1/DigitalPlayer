@@ -83,9 +83,11 @@ const Header = (props) => {
     <>
       <AppBar position="static" style={{ backgroundColor: appBarDarkerColor }}>
         <Toolbar>
+          {props.credential && Object.entries(props.credential).length !== 0 && (
           <IconButton style={{ color: 'white' }} onClick={toggleDrawer(true)}>
             <MenuIcon />
-          </IconButton>
+          </IconButton>)
+          }
           <Typography variant="h6" style={{ flexGrow: 1, cursor: 'pointer', color: 'white' }} onClick={() => props.setPage('home')}>
             LatinoDigital Player PRO
           </Typography>
