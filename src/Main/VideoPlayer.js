@@ -8,45 +8,49 @@ const VideoPlayer = ({ videoUrl }) => {
 
   useEffect(() => {
     // Initialize the Video.js player
-    playerRef.current = videojs(videoRef.current, { 
+    playerRef.current = videojs(videoRef.current, {
       liveui: true,
       html5: {
         hls: {
-          withCredentials: true,
+          withCredentials: false, // Avoid sending credentials
         },
-      }
-      });
+      },
+    });
 
+    // Ensure the video URL uses HTTPS if possible
     const secureVideoUrl = videoUrl.startsWith("https://")
       ? videoUrl
       : videoUrl.replace("http://", "https://");
-    // Set the source of the video player based on the videoUrl
-    const videoType = getVideoType(videoUrl);
+
+    // Set the video source and type
+    const videoType = getVideoType(secureVideoUrl);
     playerRef.current.src({ src: secureVideoUrl, type: videoType });
 
-    // Play the video
-    playerRef.current.play().catch((err) => {
-      console.error("Video playback failed:", err);
+    // Handle potential playback errors
+    playerRef.current.ready(() => {
+      playerRef.current.play().catch((err) => {
+        console.error("Video playback failed:", err);
+      });
     });
 
-    // Cleanup function to dispose the player
+    // Cleanup: Dispose of the player when the component unmounts
     return () => {
       if (playerRef.current) {
         playerRef.current.dispose();
       }
     };
-  }, [videoUrl]); // Re-run effect if videoUrl changes
+  }, [videoUrl]);
 
-  // Function to determine the video type based on the URL
+  // Determine the video MIME type based on the URL extension
   const getVideoType = (url) => {
-    if (url.endsWith('.m3u8')) {
-      return 'application/x-mpegurl'; // HLS
-    } else if (url.endsWith('.mp4')) {
-      return 'video/mp4'; // MP4
-    } else if (url.endsWith('.mkv')) {
-      return 'video/x-matroska'; // MKV
+    if (url.endsWith(".m3u8")) {
+      return "application/x-mpegurl"; // HLS
+    } else if (url.endsWith(".mp4")) {
+      return "video/mp4"; // MP4
+    } else if (url.endsWith(".mkv")) {
+      return "video/x-matroska"; // MKV
     }
-    return ''; // Default or unsupported type
+    return ""; // Default or unsupported type
   };
 
   return (
@@ -54,12 +58,10 @@ const VideoPlayer = ({ videoUrl }) => {
       <div data-vjs-player>
         <video
           ref={videoRef}
-          id="live-video"
           className="video-js vjs-default-skin vjs-live vjs-liveui"
+          controls
           width="640"
           height="360"
-          controls
-          crossOrigin="use-credentials"
         />
       </div>
     </div>
