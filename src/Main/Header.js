@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -39,6 +39,7 @@ const Header = (props) => {
   };
 
   const handleLogout = () => {
+    setAnchorEl(null);
     localStorage.setItem('cred_player', '{}');
     props.setCredentials({});
     props.setPage('home');
@@ -82,15 +83,14 @@ const Header = (props) => {
     <>
       <AppBar position="static" style={{ backgroundColor: appBarDarkerColor }}>
         <Toolbar>
-          {props.credential && Object.entries(props.credential).length !== 0 && (
+          {props.credentials && Object.entries(props.credentials).length !== 0 && (
           <IconButton style={{ color: 'white' }} onClick={toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>)
           }
-          <Typography variant="h6" style={{ flexGrow: 1, cursor: 'pointer', color: 'white' }} onClick={() => props.setPage('home')}>
+          <Typography variant="h6" style={{ flexGrow: 1, cursor: 'pointer', color: 'white' }} onClick={() => props.credentials?props.setPage('dashboard') :props.setPage('home')}>
             LatinoDigital Player PRO
           </Typography>
-          {/* Language Dropdown */}
           <FormControl variant='standard' style={{marginRight:50}} >
             <Select
               value={props.language}
