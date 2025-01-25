@@ -1,3 +1,3 @@
-Digital Player Manifesto
+Digital Player Beta version
+This is a simple Beta version of whats yet to become a fully functional Web Player for M3U lists. This version for now works only on HTTP. However we are working on version 1 to be HTTPS.
 
-This player is intended to allow people to stream their M3U Links, and watch their content! Made with love for the community <3!
