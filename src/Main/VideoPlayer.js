@@ -68,7 +68,7 @@ const VideoPlayer = ({ videoUrl }) => {
           className="video-js vjs-default-skin vjs-live vjs-liveui"
           width="640"
           height="360"
-          controls
+          controls= {true}
           crossOrigin="anonymous"
         />
       </div>
