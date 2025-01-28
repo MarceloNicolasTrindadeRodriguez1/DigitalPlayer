@@ -1,15 +1,25 @@
 {
-  "name": "my-iptv-dashboard",
+  "name": "LatinoDigital",
   "version": "0.1.0",
   "private": true,
+  "description": "LatinoDigital",
+  "author": "LatinoDigital",
+  "main": "public/main.js",
+  "icon": "public/icon.png",
+  "homepage": "./",
   "dependencies": {
+    "@electron/remote": "^2.1.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.3.0",
     "axios": "^1.7.9",
+    "concurrently": "^9.1.2",
     "cra-template": "1.2.0",
+    "cross-env": "^7.0.3",
+    "electron-is-dev": "^3.0.1",
     "hls.js": "^1.5.18",
+    "node-fetch": "2.6.1",
     "react": "^19.0.0",
     "react-adsense": "^0.1.0",
     "react-dom": "^19.0.0",
@@ -17,13 +27,33 @@
     "react-scripts": "5.0.1",
     "video.js": "^8.21.0",
     "videojs-contrib-hls": "^5.15.0",
+    "wait-on": "^8.0.2",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron:serve": "concurrently -k \"cross-env BROWSER=none yarn start\" \"yarn electron:start\"",
+    "electron:start": "wait-on tcp:3000 && electron .",
+    "electron:build": "yarn build && electron-builder -c.extraMetadata.main=build/main.js"
+  },
+  "build": {
+    "extends": null,
+    "appId": "com.digital-player",
+    "files": [
+      "dist/**/*",
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "signAndEditExecutable": false
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -42,5 +72,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^34.0.1",
+    "electron-builder": "^25.1.8"
   }
 }

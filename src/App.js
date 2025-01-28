@@ -61,8 +61,8 @@ const App = () => {
     }
     <div>
       <AdSense.Google
-        client="ca-pub-6167157639317587" // Replace with your AdSense client ID
-        slot="6960546089" // Replace with your Ad unit slot ID
+        client="ca-pub-6167157639317587"
+        slot="6960546089"
         style={{ display: "block" }}
         format="auto"
         responsive="true"
